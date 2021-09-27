@@ -1,21 +1,19 @@
-import logo from './logo.svg';
+import React from 'react';
+import { ROUTES } from './constants/routes';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import Header from './components/Header/Header';
 import './App.css';
-import Clock from './Clock.js'
-import Table from './Table.js';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          imya shapki
-        </p>
-        <div className="clock">
-        <Clock />
-        </div>
-      </header>
-        <Table />
+      <Header />
+      <Switch>
+        { ROUTES.map(({path, component}) => (
+            <Route path={path} component={component}/>
+      )) }
+      </Switch>
+      <Redirect to={{pathname: ROUTES[0].path}}/>
     </div>
   );
 }

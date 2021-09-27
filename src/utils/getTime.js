@@ -1,4 +1,4 @@
-export const getTimeString = (date) => {
+export const getTime = (date) => {
     const hour = date.getHours();
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
@@ -6,5 +6,8 @@ export const getTimeString = (date) => {
     const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
     const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
     
-    return `${formattedHour}:${formattedMinutes}:${formattedSeconds}`;
+    return { hours: formattedHour,
+             seconds: formattedSeconds,
+             minutes: formattedMinutes
+            };
 }
