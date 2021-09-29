@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from '../../logo.svg';
 import Clock from  '../Clock/Clock';
+import './Header.css';
 
 
 const Header = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { getDate } from '../../utils/getDateString';
 import itemsService from '../../services/ItemsService';
-import '../../App.css';
+import './Table.css';
 
 
 itemsService.sleep().then((result) => {console.log(result)}).catch((err) => {alert(err)});

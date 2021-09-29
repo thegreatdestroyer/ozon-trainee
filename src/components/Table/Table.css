@@ -1,0 +1,17 @@
+.table {
+    margin: 150px auto;
+    border: 2px solid;
+    border-collapse: collapse;
+    width: 800px;
+    background: #B9EAFA;
+  }
+  
+  td {
+    border: 1px solid;
+    text-align: center;
+  }
+  
+  th {
+    border: 1px solid;
+    text-align: center;
+  }
