@@ -5,7 +5,8 @@ export const ITEMS = [
         artikul: 'FOE9FS',
         date: new Date(2020, 1, 21).toISOString(),
         price: 300,
-        quantity: 4
+        quantity: 4,
+        typeId: 1
     },
     
     {
@@ -14,7 +15,8 @@ export const ITEMS = [
         artikul: 'DSK0SA',
         date: new Date(2020, 1, 21).toISOString(),
         price: 100,
-        quantity: 3
+        quantity: 3,
+        typeId: 1 
     },
 
     {
@@ -23,7 +25,8 @@ export const ITEMS = [
         artikul: 'CCSX00',
         date: new Date(2020, 1, 21).toISOString(),
         price: 50,
-        quantity: 1
+        quantity: 1, 
+        typeId: 3
     },
 
     {
@@ -32,7 +35,8 @@ export const ITEMS = [
         artikul: 'IJFD099',
         date: new Date(2020, 1, 21).toISOString(),
         price: 400,
-        quantity: 2
+        quantity: 2,
+        typeId: 4
     },
     
     {
@@ -41,7 +45,8 @@ export const ITEMS = [
         artikul: 'OISJ23S',
         date: new Date(2020, 1, 21).toISOString(),
         price: 500,
-        quantity: 5
+        quantity: 5,
+        typeId: 5
     }
 ];
 
