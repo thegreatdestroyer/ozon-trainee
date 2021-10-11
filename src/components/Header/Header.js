@@ -9,7 +9,7 @@ const Header = () => {
     <header className="App-header">
      <img src={logo} className="App-logo" alt="logo" />
         <p>
-          imya shapki
+          Учёт товаров
         </p>
         <Clock />
       </header>

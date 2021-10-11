@@ -5,6 +5,12 @@
     width: 800px;
     background: #B9EAFA;
   }
+
+  .deleteButton {
+    background: #19D4B2;
+    border-radius: 5px;
+    color: black;
+  }
   
   td {
     border: 1px solid;

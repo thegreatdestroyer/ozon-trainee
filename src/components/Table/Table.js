@@ -1,6 +1,6 @@
 import React from 'react';
-import { getDate } from '../../utils/getDateString';
 import itemsService from '../../services/ItemsService';
+import AddRowForm from '../AddRowForm/AddRowForm';
 import './Table.css';
 
 
@@ -20,6 +20,21 @@ const Table = () => {
       }
     );
 
+    const handleAddNewRow = (row) => {
+      const itemsWithNewRow = items.slice();
+      itemsWithNewRow.push(row);
+      setItems(itemsWithNewRow);      
+      console.log(row);
+    }
+    
+    const deleteItem = (id) => {
+      // const newAgregateTable = agregateTable.slice();
+      // const index = newAgregateTable.findIndex(({id: iId}) => id === iId);
+      // newAgregateTable.splice(index, 1);
+      const newItems = items.filter(item => item.id !== id);
+      setItems(newItems);
+    }
+
     React.useEffect(() => {
         setIsLoading(true);
         itemsService.getItems().then((result) => {
@@ -33,7 +48,9 @@ const Table = () => {
     }, []);
     return (
         <div>
-          {isLoading ? (<span>Loading...</span>) : (<table className="table">
+          <AddRowForm onAddNewRow={handleAddNewRow}/>
+          {isLoading ? (<span>Loading...</span>) : 
+          (<table className="table">
         <thead>
           <tr>
             <th>Номер</th>
@@ -45,10 +62,15 @@ const Table = () => {
             <th>Количество</th>
             <th>Сумма</th>
             <th>Резерв</th>
+            <th>Удалить строку</th>
           </tr>
         </thead>
         <tbody>
-          {agregateTable.map(({id, name, artikul, type, date, price, quantity}) => (
+          {agregateTable.map(({id, name, artikul, type, date, price, quantity}) => { 
+          const handleDelete = () => {
+            deleteItem(id);
+          }
+          return (
           <tr key={id}>
           <td>{id}</td>   
           <td>{name}</td>
@@ -59,8 +81,10 @@ const Table = () => {
           <td>{quantity}</td>
           <td>{price * quantity}</td>
           <td />
+          <td><button onClick={handleDelete} className="deleteButton">Удалить</button></td>
           </tr>
-          ))}
+          )
+          })}
         </tbody>
       </table>)}
         </div>
