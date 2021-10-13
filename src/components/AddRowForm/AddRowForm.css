@@ -1,15 +1,25 @@
 .addForm {
-    width: 400px;
+    display: none;
 }
 
 .addButton {
     background: greenyellow;
     border-radius: 5px;
-    color: black;
+    color: rgb(245, 189, 189);
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .saveButton {
+    margin-top: 20px;
     background: #19D4B2;
     border-radius: 5px;
     color: black;
+}
+
+.addFormDisplayed {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

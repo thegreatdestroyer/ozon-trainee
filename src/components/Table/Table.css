@@ -1,5 +1,5 @@
 .table {
-    margin: 150px auto;
+    margin: 30px auto;
     border: 2px solid;
     border-collapse: collapse;
     width: 800px;
@@ -21,3 +21,5 @@
     border: 1px solid;
     text-align: center;
   }
+
+ 

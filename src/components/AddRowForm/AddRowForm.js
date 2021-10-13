@@ -1,56 +1,44 @@
 import React from 'react';
+import './AddRowForm.css'
 
 
 const AddRowForm = (props) => {
 
-    const [id, setId] = React.useState();
-    const [name, setName] = React.useState();
-    const [artikul, setArtikul] = React.useState();
-    const [typeId, setType] = React.useState();
-    const [date, setDate] = React.useState();
-    const [price, setPrice] = React.useState();
-    const [quantity, setQuantity] = React.useState();
+    const [formState, setFormState] = React.useState({
+        name: '',
+        artikul: '',
+        typeId: '',
+        date: '',
+        price: '',
+        quantity: ''
+    });
+    const [isOpen, setIsOpen] = React.useState(false);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const newRow = {
-            id,
-            name,
-            artikul,
-            typeId,
-            date,
-            price,
-            quantity
-        }
-        props.onAddNewRow(newRow);
+        props.onAddNewRow(formState);
     }
 
     const handleChange = (event) => {
         const fieldName = event.target.name;
         const value = event.target.value;
-        if (fieldName === 'id') {
-            setId(value);
-        } else if (fieldName === 'name') {
-            setName(value);
-        } else if (fieldName === 'artikul') {
-            setArtikul(value);
-        } else if (fieldName === 'typeId') {
-            setType(value)
-        } else if (fieldName === 'date') {
-            setDate(value);
-        } else if (fieldName === 'price') {
-            setPrice(value);
-        } else if (fieldName === 'quantity') {
-            setQuantity(value);
-        }
+
+        setFormState(prev => ({
+                ...prev,
+                [fieldName]: value
+            }
+        ));
     }
 
+        const handleOpenForm = () => {
+            setIsOpen(true);
+        }
+    
 return (
     <div>
-        <button className="addButton">Новый элемент</button>
-            <form className="addForm" onSubmit={handleSubmit}>
-                <input type="number" name='id' placeholder='id' onChange={handleChange}/>
-                <input type="text" name='name' placeholder='name' onChange={handleChange}/>
+        <button className="addButton" onClick={handleOpenForm}>Новый элемент</button>
+            <form className={isOpen ? 'addFormDisplayed' : 'addForm'} onSubmit={handleSubmit}>
+                <input type="text" name='name' placeholder='name' onChange={handleChange} value={formState.name}/>
                 <input type="text" name='artikul' placeholder='artikul' onChange={handleChange}/>
                 <input type="text" name='typeId' placeholder='type' onChange={handleChange}/>
                 <input type="date" name='date' placeholder='date' onChange={handleChange}/>

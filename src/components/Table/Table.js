@@ -1,12 +1,13 @@
 import React from 'react';
 import itemsService from '../../services/ItemsService';
 import AddRowForm from '../AddRowForm/AddRowForm';
+import TableFilter from '../TableFilter/TableFilter'
 import './Table.css';
 
 
 itemsService.sleep().then((result) => {console.log(result)}).catch((err) => {alert(err)});
 
-const Table = () => {
+const Table = (props) => {
     const [items, setItems] = React.useState([]);
     const [types, setTypes] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(false);
@@ -22,10 +23,27 @@ const Table = () => {
 
     const handleAddNewRow = (row) => {
       const itemsWithNewRow = items.slice();
-      itemsWithNewRow.push(row);
+      itemsWithNewRow.push({
+        ...row,
+        id: itemsWithNewRow.length + 1
+      });
       setItems(itemsWithNewRow);      
       console.log(row);
     }
+
+    const tableSort = (columnName, isDesc) => {
+      const newItems = items.slice();
+      const newSortItems = newItems.sort((a,b) => {
+        if (isDesc) {
+        return a[columnName] < b[columnName] ? 1 : -1;
+      }
+      return a[columnName] > b[columnName] ? 1 : -1;
+    });
+
+      setItems(newSortItems);
+
+      console.log(columnName, isDesc);
+      }
     
     const deleteItem = (id) => {
       // const newAgregateTable = agregateTable.slice();
@@ -49,6 +67,7 @@ const Table = () => {
     return (
         <div>
           <AddRowForm onAddNewRow={handleAddNewRow}/>
+          <TableFilter onSort={tableSort} />
           {isLoading ? (<span>Loading...</span>) : 
           (<table className="table">
         <thead>

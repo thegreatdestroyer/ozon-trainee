@@ -1,0 +1,20 @@
+.sortingButtons {
+    margin: 100px auto 0;
+}
+
+.sortButtonDesc {
+    background: lime;
+    border-radius: 4px;
+    margin: 0 40px;
+}
+
+.sortButtonAsc {
+    background:orangered;
+    border-radius: 4px;
+    margin: 0 40px;
+}
+
+.sortButtonDefault {
+    border-radius: 4px;
+    margin: 0 40px;
+}
