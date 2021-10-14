@@ -66,7 +66,6 @@ const TableFilter = (props) => {
         return 'sortButtonDefault';
     }
 
-
 return (
     <div className="sortingButtons">
     {buttons.map(({columnName, isDesc, isActive}) => {

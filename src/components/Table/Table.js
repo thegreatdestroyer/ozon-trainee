@@ -64,6 +64,7 @@ const Table = (props) => {
           setTypes(result);
         });
     }, []);
+    
     return (
         <div>
           <AddRowForm onAddNewRow={handleAddNewRow}/>

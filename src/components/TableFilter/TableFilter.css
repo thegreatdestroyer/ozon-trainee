@@ -1,20 +1,25 @@
 .sortingButtons {
-    margin: 100px auto 0;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
 }
 
 .sortButtonDesc {
-    background: lime;
+    background: #1e9463;
     border-radius: 4px;
     margin: 0 40px;
+    color: white;
 }
 
 .sortButtonAsc {
-    background:orangered;
+    background:#ed502d;
     border-radius: 4px;
     margin: 0 40px;
+    color: white;
 }
 
 .sortButtonDefault {
+    background: #f2eae9;
     border-radius: 4px;
     margin: 0 40px;
 }

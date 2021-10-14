@@ -1,10 +1,9 @@
 .clock {
     width: 130px;
     display: flex;
-    align-items: center;
     justify-content: center;
 }
 
 .time {
-    width: 30px;
+    width: 29px;
 }

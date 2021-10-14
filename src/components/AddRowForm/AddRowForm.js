@@ -13,6 +13,7 @@ const AddRowForm = (props) => {
         quantity: ''
     });
     const [isOpen, setIsOpen] = React.useState(false);
+    
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -33,10 +34,15 @@ const AddRowForm = (props) => {
         const handleOpenForm = () => {
             setIsOpen(true);
         }
+
+        const handleCloseForm = () => {
+            setIsOpen(false);
+        }
     
 return (
     <div>
-        <button className="addButton" onClick={handleOpenForm}>Новый элемент</button>
+        <button className={!isOpen ? 'addButton' : 'addButtonHidden'} onClick={handleOpenForm}>Добавить товар</button>
+        <div className={isOpen ? 'showForm' : 'form'}>
             <form className={isOpen ? 'addFormDisplayed' : 'addForm'} onSubmit={handleSubmit}>
                 <input type="text" name='name' placeholder='name' onChange={handleChange} value={formState.name}/>
                 <input type="text" name='artikul' placeholder='artikul' onChange={handleChange}/>
@@ -44,8 +50,10 @@ return (
                 <input type="date" name='date' placeholder='date' onChange={handleChange}/>
                 <input type="number" name='price' placeholder='price' onChange={handleChange}/>
                 <input type="number" name='quantity' placeholder='quantity' onChange={handleChange}/>
-                <button classeName="saveButton" type='submit'>Сохранить</button>
+                <button className="saveButton" type='submit'>Сохранить</button>
+                <button className="closeButton" type='button' onClick={handleCloseForm}>Х</button>
             </form>
+        </div>
     </div>
 )
 }
