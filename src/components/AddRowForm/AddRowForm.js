@@ -42,7 +42,7 @@ const AddRowForm = (props) => {
 return (
     <div>
         <button className={isOpen ? 'addButtonHidden' : 'addButton'} onClick={handleOpenForm}>Добавить товар</button>
-        <div className={isOpen ? 'overlay' : 'form'}>
+        <div className={isOpen ? 'showOverlay' : 'hideOverlay'}>
             <div className={isOpen ? 'showFormContainer' : 'hideFormContainer'}>
             <div className="formHeader">
                 <h2>Добавление товара</h2>

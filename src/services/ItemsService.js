@@ -1,4 +1,3 @@
-// import { ITEMS } from '../constants/items';
 import { TYPES } from '../constants/types';
 
 class ItemsService {
@@ -21,5 +20,5 @@ class ItemsService {
 };
 
     
-
+export const ITEMS_DATA_STORAGE_KEY = 'storageTable';
 export default new ItemsService();

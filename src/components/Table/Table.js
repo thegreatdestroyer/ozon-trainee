@@ -2,6 +2,7 @@ import React from 'react';
 import itemsService from '../../services/ItemsService';
 import AddRowForm from '../AddRowForm/AddRowForm';
 import TableFilter from '../TableFilter/TableFilter'
+import { ITEMS_DATA_STORAGE_KEY } from '../../services/ItemsService';
 import './Table.css';
 
 
@@ -11,7 +12,7 @@ const Table = (props) => {
     const [items, setItems] = React.useState([]);
     const [types, setTypes] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(false);
-
+    
     const agregateTable = items.map((item) => { 
       const newTable = {
         ...item,
@@ -23,16 +24,13 @@ const Table = (props) => {
 
     const handleAddNewRow = (row) => {
       const itemsWithNewRow = items.slice();
-      const newId = itemsWithNewRow.reduce((max, item) => {
-        return Math.max(max, item['id']);
-      }, 0)
+      const newId = itemsWithNewRow.reduce((max, {id}) => Math.max(max, id), 0)
       itemsWithNewRow.push({
         ...row,
         id: newId + 1
       });
       setItems(itemsWithNewRow);   
-      localStorage.setItem('storedTable', JSON.stringify(itemsWithNewRow));   
-      console.log(row);
+      localStorage.setItem(ITEMS_DATA_STORAGE_KEY, JSON.stringify(itemsWithNewRow));
     }
 
     const tableSort = (columnName, isDesc) => {
@@ -50,12 +48,9 @@ const Table = (props) => {
       }
     
     const deleteItem = (id) => {
-      // const newAgregateTable = agregateTable.slice();
-      // const index = newAgregateTable.findIndex(({id: iId}) => id === iId);
-      // newAgregateTable.splice(index, 1);
       const newItems = items.filter(item => item.id !== id);
       setItems(newItems);
-      localStorage.setItem('storedTable', JSON.stringify(newItems))
+      localStorage.setItem(ITEMS_DATA_STORAGE_KEY, JSON.stringify(newItems))
     }
 
     React.useEffect(() => {
