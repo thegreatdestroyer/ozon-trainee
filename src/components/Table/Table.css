@@ -11,6 +11,10 @@
     border-radius: 5px;
     color: white;
   }
+
+  .loading {
+    margin: 700px;
+  }
   
   td {
     border: 1px solid;

@@ -23,11 +23,15 @@ const Table = (props) => {
 
     const handleAddNewRow = (row) => {
       const itemsWithNewRow = items.slice();
+      const newId = itemsWithNewRow.reduce((max, item) => {
+        return Math.max(max, item['id']);
+      }, 0)
       itemsWithNewRow.push({
         ...row,
-        id: itemsWithNewRow.length + 1
+        id: newId + 1
       });
-      setItems(itemsWithNewRow);      
+      setItems(itemsWithNewRow);   
+      localStorage.setItem('storedTable', JSON.stringify(itemsWithNewRow));   
       console.log(row);
     }
 
@@ -51,6 +55,7 @@ const Table = (props) => {
       // newAgregateTable.splice(index, 1);
       const newItems = items.filter(item => item.id !== id);
       setItems(newItems);
+      localStorage.setItem('storedTable', JSON.stringify(newItems))
     }
 
     React.useEffect(() => {
@@ -69,7 +74,7 @@ const Table = (props) => {
         <div>
           <AddRowForm onAddNewRow={handleAddNewRow}/>
           <TableFilter onSort={tableSort} />
-          {isLoading ? (<span>Loading...</span>) : 
+          {isLoading ? (<span className="loading">Loading...</span>) : 
           (<table className="table">
         <thead>
           <tr>
