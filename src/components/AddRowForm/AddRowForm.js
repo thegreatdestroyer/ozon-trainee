@@ -13,6 +13,8 @@ const AddRowForm = (props) => {
         quantity: ''
     });
     const [isOpen, setIsOpen] = React.useState(false);
+
+    localStorage.getItem('')
     
 
     const handleSubmit = (event) => {
@@ -41,7 +43,7 @@ const AddRowForm = (props) => {
     
 return (
     <div>
-        <button className={!isOpen ? 'addButton' : 'addButtonHidden'} onClick={handleOpenForm}>Добавить товар</button>
+        <button className={isOpen ? 'addButtonHidden' : 'addButton'} onClick={handleOpenForm}>Добавить товар</button>
         <div className={isOpen ? 'showForm' : 'form'}>
             <form className={isOpen ? 'addFormDisplayed' : 'addForm'} onSubmit={handleSubmit}>
                 <input type="text" name='name' placeholder='name' onChange={handleChange} value={formState.name}/>
