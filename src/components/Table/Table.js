@@ -2,16 +2,16 @@ import React from 'react';
 import itemsService from '../../services/ItemsService';
 import AddRowForm from '../AddRowForm/AddRowForm';
 import TableFilter from '../TableFilter/TableFilter'
+import { connect } from 'react-redux';
 import './Table.css';
+import { setItemsAction, setTypesAction } from '../../store/Table/actions';
 
 
-itemsService.sleep().then((result) => {console.log(result)}).catch((err) => {alert(err)});
+// itemsService.sleep().then((result) => {console.log(result)}).catch((err) => {alert(err)});
 
-const Table = (props) => {
-    const [items, setItems] = React.useState([]);
-    const [types, setTypes] = React.useState([]);
+const Table = ({items, onSetItems, types, onSetTypes}) => {
     const [isLoading, setIsLoading] = React.useState(false);
-
+    console.log(items);
     const agregateTable = items.map((item) => { 
       const newTable = {
         ...item,
@@ -27,7 +27,7 @@ const Table = (props) => {
         ...row,
         id: itemsWithNewRow.length + 1
       });
-      setItems(itemsWithNewRow);      
+      onSetItems(itemsWithNewRow);      
       console.log(row);
     }
 
@@ -40,7 +40,7 @@ const Table = (props) => {
       return a[columnName] > b[columnName] ? 1 : -1;
     });
 
-      setItems(newSortItems);
+      onSetItems(newSortItems);
 
       console.log(columnName, isDesc);
       }
@@ -50,18 +50,18 @@ const Table = (props) => {
       // const index = newAgregateTable.findIndex(({id: iId}) => id === iId);
       // newAgregateTable.splice(index, 1);
       const newItems = items.filter(item => item.id !== id);
-      setItems(newItems);
+      onSetItems(newItems);
     }
 
     React.useEffect(() => {
         setIsLoading(true);
         itemsService.getItems().then((result) => {
           setIsLoading(false);
-          setItems(result);
+          onSetItems(result);
         });
         itemsService.getTypes().then((result) => {
           setIsLoading(false);
-          setTypes(result);
+          onSetTypes(result);
         });
     }, []);
     
@@ -111,4 +111,16 @@ const Table = (props) => {
     )
 }
 
-export default Table;
+const mapStateToProps = (state) => {
+    return { 
+      items: state.items,
+      types: state.types
+    }
+};
+
+const mapDispatchToProps = {
+  onSetItems: setItemsAction,
+  onSetTypes: setTypesAction
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
