@@ -1,10 +1,14 @@
-import { ITEMS } from '../constants/items';
 import { TYPES } from '../constants/types';
 
 class ItemsService {
+
     getItems = async () => {
         await this.sleep(1500);
-        return ITEMS;
+        const items = localStorage.getItem('storedTable');
+        if (items) {
+            return JSON.parse(items);
+        }
+        return [];
     }
 
     getTypes = async () => {
@@ -16,5 +20,5 @@ class ItemsService {
 };
 
     
-
+export const ITEMS_DATA_STORAGE_KEY = 'storageTable';
 export default new ItemsService();

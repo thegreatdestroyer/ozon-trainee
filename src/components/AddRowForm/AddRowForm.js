@@ -13,8 +13,6 @@ const AddRowForm = (props) => {
         quantity: ''
     });
     const [isOpen, setIsOpen] = React.useState(false);
-
-    localStorage.getItem('')
     
 
     const handleSubmit = (event) => {
@@ -44,17 +42,22 @@ const AddRowForm = (props) => {
 return (
     <div>
         <button className={isOpen ? 'addButtonHidden' : 'addButton'} onClick={handleOpenForm}>Добавить товар</button>
-        <div className={isOpen ? 'showForm' : 'form'}>
-            <form className={isOpen ? 'addFormDisplayed' : 'addForm'} onSubmit={handleSubmit}>
-                <input type="text" name='name' placeholder='name' onChange={handleChange} value={formState.name}/>
-                <input type="text" name='artikul' placeholder='artikul' onChange={handleChange}/>
-                <input type="text" name='typeId' placeholder='type' onChange={handleChange}/>
-                <input type="date" name='date' placeholder='date' onChange={handleChange}/>
-                <input type="number" name='price' placeholder='price' onChange={handleChange}/>
-                <input type="number" name='quantity' placeholder='quantity' onChange={handleChange}/>
-                <button className="saveButton" type='submit'>Сохранить</button>
+        <div className={isOpen ? 'showOverlay' : 'hideOverlay'}>
+            <div className={isOpen ? 'showFormContainer' : 'hideFormContainer'}>
+            <div className="formHeader">
+                <h2>Добавление товара</h2>
                 <button className="closeButton" type='button' onClick={handleCloseForm}>Х</button>
+            </div>
+            <form className={isOpen ? 'addFormDisplayed' : 'addForm'} onSubmit={handleSubmit}>
+                <input type="text" name='name' placeholder='наименование' onChange={handleChange} value={formState.name}/>
+                <input type="text" name='artikul' placeholder='артикул' onChange={handleChange}/>
+                <input type="number" name='typeId' placeholder='тип(от 1 до 5)' onChange={handleChange}/>
+                <input type="date" name='date' placeholder='дата' onChange={handleChange}/>
+                <input type="number" name='price' placeholder='цена' onChange={handleChange}/>
+                <input type="number" name='quantity' placeholder='количество' onChange={handleChange}/>
+                <button className="saveButton" type='submit'>Сохранить</button>
             </form>
+            </div>
         </div>
     </div>
 )
