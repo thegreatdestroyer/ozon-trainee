@@ -30,12 +30,7 @@ const Table = ({items, onSetItems, types, onSetTypes}) => {
         ...row,
         id: newId + 1
       });
-<<<<<<< HEAD
       onSetItems(itemsWithNewRow);      
-=======
-      setItems(itemsWithNewRow);   
-      localStorage.setItem('storedTable', JSON.stringify(itemsWithNewRow));   
->>>>>>> ec3bfb8 (добавил добавление и удаление с локалсторедж)
       console.log(row);
     }
 
@@ -58,12 +53,7 @@ const Table = ({items, onSetItems, types, onSetTypes}) => {
       // const index = newAgregateTable.findIndex(({id: iId}) => id === iId);
       // newAgregateTable.splice(index, 1);
       const newItems = items.filter(item => item.id !== id);
-<<<<<<< HEAD
       onSetItems(newItems);
-=======
-      setItems(newItems);
-      localStorage.setItem('storedTable', JSON.stringify(newItems))
->>>>>>> ec3bfb8 (добавил добавление и удаление с локалсторедж)
     }
 
     React.useEffect(() => {
