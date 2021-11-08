@@ -23,11 +23,19 @@ const Table = ({items, onSetItems, types, onSetTypes}) => {
 
     const handleAddNewRow = (row) => {
       const itemsWithNewRow = items.slice();
+      const newId = itemsWithNewRow.reduce((max, item) => {
+        return Math.max(max, item['id']);
+      }, 0)
       itemsWithNewRow.push({
         ...row,
-        id: itemsWithNewRow.length + 1
+        id: newId + 1
       });
+<<<<<<< HEAD
       onSetItems(itemsWithNewRow);      
+=======
+      setItems(itemsWithNewRow);   
+      localStorage.setItem('storedTable', JSON.stringify(itemsWithNewRow));   
+>>>>>>> ec3bfb8 (добавил добавление и удаление с локалсторедж)
       console.log(row);
     }
 
@@ -50,7 +58,12 @@ const Table = ({items, onSetItems, types, onSetTypes}) => {
       // const index = newAgregateTable.findIndex(({id: iId}) => id === iId);
       // newAgregateTable.splice(index, 1);
       const newItems = items.filter(item => item.id !== id);
+<<<<<<< HEAD
       onSetItems(newItems);
+=======
+      setItems(newItems);
+      localStorage.setItem('storedTable', JSON.stringify(newItems))
+>>>>>>> ec3bfb8 (добавил добавление и удаление с локалсторедж)
     }
 
     React.useEffect(() => {
@@ -69,7 +82,7 @@ const Table = ({items, onSetItems, types, onSetTypes}) => {
         <div>
           <AddRowForm onAddNewRow={handleAddNewRow}/>
           <TableFilter onSort={tableSort} />
-          {isLoading ? (<span>Loading...</span>) : 
+          {isLoading ? (<span className="loading">Loading...</span>) : 
           (<table className="table">
         <thead>
           <tr>
