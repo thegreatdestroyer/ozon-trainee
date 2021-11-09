@@ -4,6 +4,7 @@ import AddRowForm from '../AddRowForm/AddRowForm';
 import TableFilter from '../TableFilter/TableFilter'
 import { ITEMS_DATA_STORAGE_KEY } from '../../services/ItemsService';
 import { connect } from 'react-redux';
+
 import './Table.css';
 import { setItemsAction, setTypesAction } from '../../store/Table/actions';
 
@@ -12,7 +13,7 @@ import { setItemsAction, setTypesAction } from '../../store/Table/actions';
 
 const Table = ({items, onSetItems, types, onSetTypes}) => {
     const [isLoading, setIsLoading] = React.useState(false);
-    console.log(items);
+
     const agregateTable = items.map((item) => { 
       const newTable = {
         ...item,
@@ -24,14 +25,18 @@ const Table = ({items, onSetItems, types, onSetTypes}) => {
 
     const handleAddNewRow = (row) => {
       const itemsWithNewRow = items.slice();
+
       const newId = itemsWithNewRow.reduce((max, item) => {
         return Math.max(max, item['id']);
       }, 0)
+
+      const newId = itemsWithNewRow.reduce((max, {id}) => Math.max(max, id), 0)
       itemsWithNewRow.push({
         ...row,
         id: newId + 1
       });
       onSetItems(itemsWithNewRow);   
+
       localStorage.setItem(ITEMS_DATA_STORAGE_KEY, JSON.stringify(itemsWithNewRow));
     }
 
@@ -50,10 +55,8 @@ const Table = ({items, onSetItems, types, onSetTypes}) => {
       }
     
     const deleteItem = (id) => {
-      // const newAgregateTable = agregateTable.slice();
-      // const index = newAgregateTable.findIndex(({id: iId}) => id === iId);
-      // newAgregateTable.splice(index, 1);
       const newItems = items.filter(item => item.id !== id);
+
       onSetItems(newItems);
       localStorage.setItem(ITEMS_DATA_STORAGE_KEY, JSON.stringify(newItems))
     }

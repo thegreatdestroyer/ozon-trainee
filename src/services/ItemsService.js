@@ -6,6 +6,7 @@ class ItemsService {
 
     getItems = async () => {
         await this.sleep(1500);
+
         const items = localStorage.getItem(ITEMS_DATA_STORAGE_KEY);
         if (items) {
             return JSON.parse(items);
