@@ -1,10 +1,13 @@
 import { TYPES } from '../constants/types';
 
+export const ITEMS_DATA_STORAGE_KEY = 'storageTable';
+
 class ItemsService {
 
     getItems = async () => {
         await this.sleep(1500);
-        const items = localStorage.getItem('storedTable');
+
+        const items = localStorage.getItem(ITEMS_DATA_STORAGE_KEY);
         if (items) {
             return JSON.parse(items);
         }
@@ -19,6 +22,4 @@ class ItemsService {
     sleep = ms => new Promise((resolve) => setTimeout(resolve, ms))
 };
 
-    
-export const ITEMS_DATA_STORAGE_KEY = 'storageTable';
 export default new ItemsService();
