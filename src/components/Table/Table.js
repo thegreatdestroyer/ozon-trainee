@@ -2,6 +2,7 @@ import React from 'react';
 import itemsService from '../../services/ItemsService';
 import AddRowForm from '../AddRowForm/AddRowForm';
 import TableFilter from '../TableFilter/TableFilter'
+import { ITEMS_DATA_STORAGE_KEY } from '../../services/ItemsService';
 import { connect } from 'react-redux';
 import './Table.css';
 import { setItemsAction, setTypesAction } from '../../store/Table/actions';
@@ -30,8 +31,8 @@ const Table = ({items, onSetItems, types, onSetTypes}) => {
         ...row,
         id: newId + 1
       });
-      onSetItems(itemsWithNewRow);      
-      console.log(row);
+      onSetItems(itemsWithNewRow);   
+      localStorage.setItem(ITEMS_DATA_STORAGE_KEY, JSON.stringify(itemsWithNewRow));
     }
 
     const tableSort = (columnName, isDesc) => {
@@ -54,6 +55,7 @@ const Table = ({items, onSetItems, types, onSetTypes}) => {
       // newAgregateTable.splice(index, 1);
       const newItems = items.filter(item => item.id !== id);
       onSetItems(newItems);
+      localStorage.setItem(ITEMS_DATA_STORAGE_KEY, JSON.stringify(newItems))
     }
 
     React.useEffect(() => {
