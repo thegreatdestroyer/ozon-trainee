@@ -1,30 +1,21 @@
 import React from 'react';
 import './AddRowForm.css'
+import { connect } from 'react-redux';
+import { setFormStateAction, setIsOpenAction } from '../../store/AddRowForm/actions';
 
 
-const AddRowForm = (props) => {
-
-    const [formState, setFormState] = React.useState({
-        name: '',
-        artikul: '',
-        typeId: '',
-        date: '',
-        price: '',
-        quantity: ''
-    });
-    const [isOpen, setIsOpen] = React.useState(false);
-    
+const AddRowForm = ({ onAddNewRow, formState, onSetFormState, isOpen, onSetIsOpen}) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.onAddNewRow(formState);
+        onAddNewRow(formState);
     }
 
     const handleChange = (event) => {
         const fieldName = event.target.name;
         const value = event.target.value;
 
-        setFormState(prev => ({
+        onSetFormState(prev => ({
                 ...prev,
                 [fieldName]: value
             }
@@ -32,11 +23,11 @@ const AddRowForm = (props) => {
     }
 
         const handleOpenForm = () => {
-            setIsOpen(true);
+            onSetIsOpen(true);
         }
 
         const handleCloseForm = () => {
-            setIsOpen(false);
+            onSetIsOpen(false);
         }
     
 return (
@@ -63,5 +54,16 @@ return (
 )
 }
 
+const mapStateToProps = (state) => {
+    return { 
+      formState: state.addRowForm.formState,
+      isOpen: state.addRowForm.isOpen,
+    }
+};
 
-export default AddRowForm;
+const mapDispatchToProps = {
+    onSetFormState: setFormStateAction,
+    onSetIsOpen: setIsOpenAction,
+  }
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddRowForm);

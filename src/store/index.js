@@ -1,4 +1,12 @@
-import { createStore } from "redux";
-import { reducer } from "./Table/reducer";
+import { createStore, combineReducers } from "redux";
+import { tableReducer } from "./Table/reducer";
+import { addRowFormReducer } from "./AddRowForm/reducer";
 
-export const store = createStore(reducer);
+const rootReducer = combineReducers({
+    table: tableReducer,
+    addRowForm: addRowFormReducer
+});
+
+export const store = createStore(rootReducer);
+
+console.log(store.getState());

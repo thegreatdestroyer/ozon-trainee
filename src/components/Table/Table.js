@@ -6,13 +6,12 @@ import { ITEMS_DATA_STORAGE_KEY } from '../../services/ItemsService';
 import { connect } from 'react-redux';
 
 import './Table.css';
-import { setItemsAction, setTypesAction } from '../../store/Table/actions';
+import { setItemsAction, setTypesAction, setIsLoadingAction } from '../../store/Table/actions';
 
 
 // itemsService.sleep().then((result) => {console.log(result)}).catch((err) => {alert(err)});
 
-const Table = ({items, onSetItems, types, onSetTypes}) => {
-    const [isLoading, setIsLoading] = React.useState(false);
+const Table = ({items, onSetItems, types, onSetTypes, isLoading, onSetIsLoading}) => {
 
     const agregateTable = items.map((item) => { 
       const newTable = {
@@ -26,9 +25,9 @@ const Table = ({items, onSetItems, types, onSetTypes}) => {
     const handleAddNewRow = (row) => {
       const itemsWithNewRow = items.slice();
 
-      const newId = itemsWithNewRow.reduce((max, item) => {
-        return Math.max(max, item['id']);
-      }, 0)
+      // const newId = itemsWithNewRow.reduce((max, item) => {
+      //   return Math.max(max, item['id']);
+      // }, 0)
 
       const newId = itemsWithNewRow.reduce((max, {id}) => Math.max(max, id), 0)
       itemsWithNewRow.push({
@@ -62,13 +61,13 @@ const Table = ({items, onSetItems, types, onSetTypes}) => {
     }
 
     React.useEffect(() => {
-        setIsLoading(true);
+      onSetIsLoading(true);
         itemsService.getItems().then((result) => {
-          setIsLoading(false);
+          onSetIsLoading(false);
           onSetItems(result);
         });
         itemsService.getTypes().then((result) => {
-          setIsLoading(false);
+          onSetIsLoading(false);
           onSetTypes(result);
         });
     }, []);
@@ -121,14 +120,16 @@ const Table = ({items, onSetItems, types, onSetTypes}) => {
 
 const mapStateToProps = (state) => {
     return { 
-      items: state.items,
-      types: state.types
+      items: state.table.items,
+      types: state.table.types,
+      isLoading: state.table.isLoading
     }
 };
 
 const mapDispatchToProps = {
   onSetItems: setItemsAction,
-  onSetTypes: setTypesAction
+  onSetTypes: setTypesAction,
+  onSetIsLoading: setIsLoadingAction
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
