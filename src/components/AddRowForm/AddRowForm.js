@@ -6,6 +6,21 @@ import { setFormStateAction, setIsOpenAction } from '../../store/AddRowForm/acti
 
 const AddRowForm = ({ onAddNewRow, formState, onSetFormState, isOpen, onSetIsOpen}) => {
 
+
+    React.useEffect(() => {
+        return () => {
+        onSetFormState({
+                name: '',
+                artikul: '',
+                typeId: '',
+                date: '',
+                price: '',
+                quantity: ''
+            });
+        }
+      }, []);
+      
+
     const handleSubmit = (event) => {
         event.preventDefault();
         onAddNewRow(formState);
@@ -15,16 +30,13 @@ const AddRowForm = ({ onAddNewRow, formState, onSetFormState, isOpen, onSetIsOpe
         const fieldName = event.target.name;
         const value = event.target.value;
 
-        onSetFormState(prev => ({
-                ...prev,
+        onSetFormState(
+            {
+                ...formState,
                 [fieldName]: value
             }
-        ));
+        );
     }
-
-        const handleOpenForm = () => {
-            onSetIsOpen(true);
-        }
 
         const handleCloseForm = () => {
             onSetIsOpen(false);
@@ -32,8 +44,7 @@ const AddRowForm = ({ onAddNewRow, formState, onSetFormState, isOpen, onSetIsOpe
     
 return (
     <div>
-        <button className={isOpen ? 'addButtonHidden' : 'addButton'} onClick={handleOpenForm}>Добавить товар</button>
-        <div className={isOpen ? 'showOverlay' : 'hideOverlay'}>
+         <div className={isOpen ? 'showOverlay' : 'hideOverlay'}>
             <div className={isOpen ? 'showFormContainer' : 'hideFormContainer'}>
             <div className="formHeader">
                 <h2>Добавление товара</h2>
@@ -57,7 +68,7 @@ return (
 const mapStateToProps = (state) => {
     return { 
       formState: state.addRowForm.formState,
-      isOpen: state.addRowForm.isOpen,
+      isOpen: state.addRowForm.isOpen
     }
 };
 

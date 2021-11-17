@@ -15,6 +15,12 @@
   .loading {
     margin: 700px;
   }
+
+  .showItemCardButton {
+    background-color: bisque;
+    border-radius: 5px;
+    font-size: 13px;
+  }
   
   td {
     border: 1px solid;

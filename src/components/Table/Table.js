@@ -6,12 +6,16 @@ import { ITEMS_DATA_STORAGE_KEY } from '../../services/ItemsService';
 import { connect } from 'react-redux';
 
 import './Table.css';
-import { setItemsAction, setTypesAction, setIsLoadingAction } from '../../store/Table/actions';
+import { setItemsAction, setTypesAction, setIsLoadingAction} from '../../store/Table/actions';
+import { setIsOpenAction } from '../../store/AddRowForm/actions';
+import { setCardItemAction } from '../../store/TableInfo/actions'
+import { useHistory } from 'react-router';
 
 
 // itemsService.sleep().then((result) => {console.log(result)}).catch((err) => {alert(err)});
 
-const Table = ({items, onSetItems, types, onSetTypes, isLoading, onSetIsLoading}) => {
+const Table = ({items, onSetItems, types, onSetTypes, isLoading, onSetIsLoading, isOpen, onSetIsOpen, onSetCardItemAction}) => {
+    const history = useHistory();
 
     const agregateTable = items.map((item) => { 
       const newTable = {
@@ -60,6 +64,17 @@ const Table = ({items, onSetItems, types, onSetTypes, isLoading, onSetIsLoading}
       localStorage.setItem(ITEMS_DATA_STORAGE_KEY, JSON.stringify(newItems))
     }
 
+    const handleOpenForm = () => {
+      onSetIsOpen(true);
+  }
+
+    const handleGoToInfo = (id) => {
+      const row = agregateTable.find((item) => id === item.id);
+      console.log(row);
+      onSetCardItemAction(row);
+      history.push("/table-info");
+    }
+
     React.useEffect(() => {
       onSetIsLoading(true);
         itemsService.getItems().then((result) => {
@@ -74,7 +89,8 @@ const Table = ({items, onSetItems, types, onSetTypes, isLoading, onSetIsLoading}
     
     return (
         <div>
-          <AddRowForm onAddNewRow={handleAddNewRow}/>
+        <button className={isOpen ? 'addButtonHidden' : 'addButton'} onClick={handleOpenForm}>Добавить товар</button>
+          { isOpen && <AddRowForm onAddNewRow={handleAddNewRow}/> }
           <TableFilter onSort={tableSort} />
           {isLoading ? (<span className="loading">Loading...</span>) : 
           (<table className="table">
@@ -97,6 +113,9 @@ const Table = ({items, onSetItems, types, onSetTypes, isLoading, onSetIsLoading}
           const handleDelete = () => {
             deleteItem(id);
           }
+          const handleClick = () => {
+            handleGoToInfo(id);
+          }
           return (
           <tr key={id}>
           <td>{id}</td>   
@@ -107,7 +126,7 @@ const Table = ({items, onSetItems, types, onSetTypes, isLoading, onSetIsLoading}
           <td>{price}</td>
           <td>{quantity}</td>
           <td>{price * quantity}</td>
-          <td />
+          <td><button onClick={handleClick} className="showItemCardButton">Показать товар</button></td>
           <td><button onClick={handleDelete} className="deleteButton">Удалить</button></td>
           </tr>
           )
@@ -122,14 +141,18 @@ const mapStateToProps = (state) => {
     return { 
       items: state.table.items,
       types: state.table.types,
-      isLoading: state.table.isLoading
+      isLoading: state.table.isLoading,
+      isOpen: state.addRowForm.isOpen,
+      item: state.item.item
     }
 };
 
 const mapDispatchToProps = {
   onSetItems: setItemsAction,
   onSetTypes: setTypesAction,
-  onSetIsLoading: setIsLoadingAction
+  onSetIsLoading: setIsLoadingAction,
+  onSetIsOpen: setIsOpenAction,
+  onSetCardItemAction: setCardItemAction
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

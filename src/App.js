@@ -14,10 +14,10 @@ function App() {
       <Header />
       <Switch>
         { ROUTES.map(({path, component}) => (
-            <Route path={path} component={component}/>
+            <Route path={path} component={component} exact/>
       )) }
       </Switch>
-      <Redirect to={{pathname: ROUTES[0].path}}/>
+      {/* <Redirect to={{pathname: ROUTES[0].path}}/> */}
     </div>
     </Provider>
   );
