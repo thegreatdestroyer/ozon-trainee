@@ -1,0 +1,19 @@
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 50px;
+    width: 400px;
+    height: 400px;
+    border: 2px solid rgb(126, 5, 5);
+    border-radius: 4px;
+    background-color: rgb(248, 198, 193);
+}
+
+.button {
+    margin-left: 1000px;
+    background-color: rgb(63, 212, 128);
+    border-radius: 5px;
+}
